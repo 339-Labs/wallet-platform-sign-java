@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/address/address-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/address/address-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/address/address-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/address/address-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/address/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/address/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/alarm/alarm-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/alarm/alarm-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/alarm/alarm-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/alarm/alarm-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/alarm/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/alarm/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/business/business-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/business/business-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/business/business-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/business/business-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/business/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/business/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/node-evm/node-evm-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/node-evm/node-evm-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/node-evm/node-evm-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/node-evm/node-evm-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/node-evm/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/node-evm/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/transaction/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/transaction/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/transaction/transaction-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/transaction/transaction-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/transaction/transaction-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/transaction/transaction-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/wallet-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/wallet-core/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
