@@ -1,4 +1,4 @@
-package com.labs339.platform.common;
+package com.labs339.platform.baseEnums;
 
 public enum ErrorCode {
     SUCCESS(0, "success"),

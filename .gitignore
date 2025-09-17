@@ -12,6 +12,7 @@ target/
 *.iws
 *.iml
 *.ipr
+/*/*/src/main/resources/application-mysql.yml
 
 
 ### Eclipse ###
