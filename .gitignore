@@ -13,6 +13,7 @@ target/
 *.iml
 *.ipr
 /*/*/src/main/resources/application-mysql.yml
+/*/*/src/main/resources/application-dev.yml
 
 
 ### Eclipse ###
