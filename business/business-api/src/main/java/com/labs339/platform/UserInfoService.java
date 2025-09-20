@@ -7,4 +7,5 @@ public interface UserInfoService {
 
     CommonResponse GetDepositAddress(DepositInfoReq req);
 
+    CommonResponse GetUserToken(Long userId);
 }

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: business-service
+  profiles:
+    active: dev
+#mybatis:
+#  mapper-locations: classpath*:base/platform/req/mapper/*Mapper.xml"
+#  type-aliases-package: base.platform.req.model

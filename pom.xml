@@ -19,8 +19,8 @@
 
 
     <properties>
-        <maven.compiler.source>22</maven.compiler.source>
-        <maven.compiler.target>22</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Spring Boot & Cloud -->
@@ -33,10 +33,10 @@
         <dubbo.spring.boot.version>3.2.8</dubbo.spring.boot.version>
 
         <!-- Database -->
-        <mysql.version>8.0.33</mysql.version>
-        <hikaricp.version>5.1.0</hikaricp.version>
-        <dynamic.version>4.1.3</dynamic.version>
+        <mysql.version>8.4.0</mysql.version>
+        <druid.version>1.2.23</druid.version>  <!-- 升级版本 -->
         <mybatis.plus.version>3.5.4.1</mybatis.plus.version>
+        <dynamic.version>4.3.1</dynamic.version>  <!-- 升级到最新版本 -->
         <shardingsphere.version>5.4.1</shardingsphere.version>
 
         <!-- Nacos -->
@@ -54,9 +54,9 @@
 
         <!-- Other -->
         <lombok.version>1.18.30</lombok.version>
-        <fastjson2.version>2.0.57</fastjson2.version>
         <hutool.version>5.8.23</hutool.version>
         <knife4j.version>4.4.0</knife4j.version>
+        <fastjson2.version>2.0.57</fastjson2.version>
     </properties>
 
     <dependencyManagement>
@@ -99,29 +99,40 @@
 
             <!-- Database -->
             <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>  <!-- Spring Boot 3.x 推荐使用 mysql-connector-j -->
                 <version>${mysql.version}</version>
+                <scope>runtime</scope>
             </dependency>
-
-<!--            动态数据源-->
-<!--            <dependency>-->
-<!--                <groupId>com.zaxxer</groupId>-->
-<!--                <artifactId>HikariCP</artifactId>-->
-<!--                <version>${hikaricp.version}</version>-->
-<!--            </dependency>-->
+<!--            mysql 驱动-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
 
 <!--            动态数据源-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
                 <version>${dynamic.version}</version>
+                <exclusions>
+                    <!-- 排除可能导致FactoryBean问题的依赖 -->
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-context</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-autoconfigure</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
-
+            <!-- Druid -->
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis.plus.version}</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
             </dependency>
 
             <!--           分库分表  ShardingSphere -->

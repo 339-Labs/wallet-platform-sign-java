@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.labs339.platform.dao.entity.ChainConfigModel;
 import org.apache.ibatis.annotations.Mapper;
 
-@DS("master")
 @Mapper
 public interface ChainConfigMapper extends BaseMapper<ChainConfigModel> {
 }
