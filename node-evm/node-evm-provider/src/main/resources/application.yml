@@ -1,10 +1,10 @@
 spring:
   application:
-    name: business-service
+    name: node-evm-service
   profiles:
     active: dev
 #mybatis:
 #  mapper-locations: classpath*:base/platform/req/mapper/*Mapper.xml"
 #  type-aliases-package: base.platform.req.model
 server:
-  port: 8801
+  port: 8803

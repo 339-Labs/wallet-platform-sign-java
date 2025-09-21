@@ -1,0 +1,48 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848  # Nacos 注册中心地址
+        namespace: 05ea6893-ca04-4875-aee8-7ef815bc2c41            # namespace 可选
+      config: # nacos 做配置中心，还需要这个
+        server-addr: 127.0.0.1:8848
+        namespace: 05ea6893-ca04-4875-aee8-7ef815bc2c41
+dubbo:
+  application:
+    name: ${spring.application.name}
+  protocols:
+    triple:
+      name: tri # 协议类型（也可以是 dubbo、rest、http）
+      port: -1 # 部署多个实例，请确保端口唯一或设为 -1（自动分配）来避免冲突，部署在容器（如 K8s），建议设为 -1
+  registry:  # 采用 SPI 机制自动发现注册中心实现，无需引用 dubbo-registry-nacos 依赖
+    address: nacos://127.0.0.1:8848?namespace=05ea6893-ca04-4875-aee8-7ef815bc2c41    # nacos://表示接入 nacos 注册中心（Nacos）
+    check: false # 设置为 false 可提升启动容错性
+    group: dubbo-dev
+    simplified: true
+#    parameters: # 添加额外参数确保连接远程Nacos
+#      nacos.address: 124.222.50.69:8848?namespace=05ea6893-ca04-4875-aee8-7ef815bc2c4e&group=dubbo-dev
+#      nacos.namespace: dev
+#      nacos.group: dubbo-dev
+  consumer:
+    check: false  # 启动时不检查提供者是否存在
+    timeout: 3000 # 调用超时
+    retries: 2    # 重试次数控制
+    loadbalance: leastactive # 使用当前活跃调用数最少的提供者
+  provider:
+    timeout: 5000 # 服务暴露的默认超时时间
+    retries: 0  # retries: 0 表示由业务方决定是否重试（避免幂等问题）
+  metadata-report:  # 于将服务的元信息（如接口、版本等）报告到注册中心。启用 Dubbo Admin，连接到 Nacos，查看元数据内容，进行灰度发布、动态路由配置。结合 Nacos 的配置管理和 Dubbo 的动态路由，实现流量的灵活分配。
+    address: nacos://127.0.0.1:8848?namespace=05ea6893-ca04-4875-aee8-7ef815bc2c41
+    retry-times: 30
+    cycle-report: false # cycle-report: false 表示只报告一次即可，不轮询
+    group: dubbo-dev
+  scan:
+    base-packages: com.labs339.platform # Dubbo服务的包扫描路径（@DubboService / @DubboReference）或者使用 @EnableDubbo 或 @DubboComponentScan
+# 日志配置
+logging:
+  config: classpath:logback.xml
+  level:
+    com.labs339.platform: DEBUG
+#    com.baomidou.dynamic.datasource: DEBUG
+#    com.alibaba.nacos: DEBUG
+#    org.apache.dubbo: DEBUG

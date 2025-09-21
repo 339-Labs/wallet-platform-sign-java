@@ -50,7 +50,7 @@
         <rocketmq.spring.boot.version>2.3.0</rocketmq.spring.boot.version>
 
         <!-- XXL-Job -->
-        <xxl.job.version>2.4.0</xxl.job.version>
+        <xxl.job.version>3.2.0</xxl.job.version>
 
         <!-- Other -->
         <lombok.version>1.18.30</lombok.version>
