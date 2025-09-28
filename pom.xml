@@ -34,9 +34,10 @@
 
         <!-- Database -->
         <mysql.version>8.4.0</mysql.version>
-        <druid.version>1.2.23</druid.version>  <!-- 升级版本 -->
-        <mybatis.plus.version>3.5.4.1</mybatis.plus.version>
-        <dynamic.version>4.3.1</dynamic.version>  <!-- 升级到最新版本 -->
+<!--        <druid.version>1.2.23</druid.version>  &lt;!&ndash; 升级版本 &ndash;&gt;-->
+        <mybatis.plus.version>3.5.9</mybatis.plus.version>
+        <mybatis.jsqlparser.version>3.5.9</mybatis.jsqlparser.version>
+        <dynamic.version>4.3.0</dynamic.version>  <!-- 升级到最新版本 -->
         <shardingsphere.version>5.4.1</shardingsphere.version>
 
         <!-- Nacos -->
@@ -107,33 +108,33 @@
 <!--            mysql 驱动-->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
+            </dependency>
+<!--            分页-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis.jsqlparser.version}</version>
             </dependency>
 
 <!--            动态数据源-->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
                 <version>${dynamic.version}</version>
-                <exclusions>
-                    <!-- 排除可能导致FactoryBean问题的依赖 -->
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-context</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-autoconfigure</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.baomidou</groupId>-->
+<!--                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>-->
+<!--                <version>${dynamic.version}</version>-->
+<!--            </dependency>-->
             <!-- Druid -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.alibaba</groupId>-->
+<!--                <artifactId>druid-spring-boot-starter</artifactId>-->
+<!--                <version>${druid.version}</version>-->
+<!--            </dependency>-->
 
             <!--           分库分表  ShardingSphere -->
             <dependency>
@@ -209,6 +210,11 @@
             <id>aliyun-maven</id>
             <name>Aliyun Maven Repository</name>
             <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://repo1.maven.org/maven2/</url>
         </repository>
         <repository>
             <id>spring-milestones</id>

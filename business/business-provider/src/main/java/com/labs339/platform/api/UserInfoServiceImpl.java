@@ -1,4 +1,4 @@
-package com.labs339.platform.service.api;
+package com.labs339.platform.api;
 
 import com.labs339.platform.UserInfoService;
 import com.labs339.platform.common.CommonResponse;

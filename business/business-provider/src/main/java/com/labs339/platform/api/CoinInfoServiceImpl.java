@@ -1,4 +1,4 @@
-package com.labs339.platform.service.api;
+package com.labs339.platform.api;
 
 import com.labs339.platform.CoinInfoService;
 import com.labs339.platform.baseDto.BaseChainInfo;

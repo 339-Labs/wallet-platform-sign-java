@@ -8,7 +8,7 @@ import com.labs339.platform.baseDto.BaseEntity;
 import lombok.Data;
 
 @Data
-@TableName("node_block_sync")
+@TableName("node_block_sync_height")
 public class NodeBlockSyncModel extends BaseEntity {
 
     @TableId(value = "id",type = IdType.ASSIGN_ID)        // 映射 `id` 字段
