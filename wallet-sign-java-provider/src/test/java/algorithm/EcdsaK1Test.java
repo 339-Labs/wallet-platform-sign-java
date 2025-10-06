@@ -9,7 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.web3j.crypto.Keys;
+import org.web3j.utils.Numeric;
 import utils.SeedManagementUtilsTest;
+
+import java.security.Key;
+import java.security.MessageDigest;
 
 @SpringBootTest(classes = WalletSignApplication.class)
 public class EcdsaK1Test {
@@ -55,17 +60,61 @@ public class EcdsaK1Test {
             //  m/purpose'/coin_type'/account'/change/address_index
             String path = "m/44'/60'/0'/0/0";
             ExtendedKey key = Ecdsa_secp256k1.derivePathSecp256k1(seed,path);
+            String privateKey = Utils.bytesToHex(key.getKey());
+            System.out.println("privateKey:"+privateKey);
             byte[] publickey = Ecdsa_secp256k1.getPublicKeySecp256k1(key.getKey(),false);
+            String address = publicKeyToAddress(publickey);
+            System.out.println("address:"+address);
+            log.info("address:"+address);
 
             String path1 = "m/44'/60'/1'/0/0";
             ExtendedKey key1 = Ecdsa_secp256k1.derivePathSecp256k1(seed,path1);
+            String privateKey1 = Utils.bytesToHex(key1.getKey());
+            System.out.println("privateKey1:"+privateKey1);
             byte[] publickey1 = Ecdsa_secp256k1.getPublicKeySecp256k1(key1.getKey(),false);
-
+            String address2 = publicKeyToAddress(publickey1);
+            System.out.println("address2:"+address2);
+            log.info("address2:"+address2);
 
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
 
     }
+
+    /**
+     * 从公钥生成EVM地址
+     *
+     * 流程：
+     * 1. 取公钥的后64字节（去掉第一个0x04前缀字节）
+     * 2. Keccak256哈希
+     * 3. 取哈希结果的后20字节
+     * 4. 添加0x前缀
+     *
+     * @param publicKey 未压缩公钥（65字节）
+     * @return EVM地址
+     */
+    public static String publicKeyToAddress(byte[] publicKey) throws Exception {
+        if (publicKey.length != 65) {
+            throw new IllegalArgumentException("Public key must be 65 bytes (uncompressed)");
+        }
+
+        // 1. 去掉第一个字节（0x04前缀）
+        byte[] publicKeyWithoutPrefix = new byte[64];
+        System.arraycopy(publicKey, 1, publicKeyWithoutPrefix, 0, 64);
+
+        // 2. Keccak256哈希
+        byte[] hash = Utils.keccak256(publicKeyWithoutPrefix);
+
+        // 3. 取后20字节
+        byte[] address = new byte[20];
+        System.arraycopy(hash, 12, address, 0, 20);
+
+        // 4. 转换为十六进制并添加0x前缀
+        return "0x" + Utils.bytesToHex(address);
+    }
+
+
+
 
 }

@@ -1,7 +1,11 @@
 package com.labs339.platform.algorithm;
 
 import com.labs339.platform.dao.ExtendedKey;
+import com.labs339.platform.dao.KeyPair;
 import com.labs339.platform.enums.AlgorithmType;
+import com.labs339.platform.enums.CoinType;
+import com.labs339.platform.enums.DepthEnum;
+import com.labs339.platform.utils.Utils;
 import org.springframework.stereotype.Component;
 
 import java.nio.ByteBuffer;
@@ -18,12 +22,38 @@ public class Eddsa_ed25519 extends Seed implements AlgorithmStrategy{
     }
 
     @Override
-    public ExtendedKey getKeyPair(int coin, int index) throws Exception {
-        return null;
+    public KeyPair getKeyPair(String coin, int index) throws Exception {
+        CoinType coinType = CoinType.getCoinType(coin);
+
+        // path =  m/purpose'/coin_type'/account'/change'   "m/44'/501'/0'/0'"
+        StringBuffer path = new StringBuffer("m/44'/");
+        path.append(coinType.getCoinType()+"'/");
+        path.append(index+"'");
+        if (DepthEnum.Four == coinType.getDepth()){
+            path.append("/0'");
+        }
+        if (DepthEnum.Five == coinType.getDepth()){
+            path.append("/0'/0'");
+        }
+
+        ExtendedKey extendedKey = derivePathEd25519(SEED,path.toString());
+        byte[] publicKey = getPublicKeyEd25519(extendedKey.getKey());
+
+        KeyPair keyPair = new KeyPair();
+        keyPair.setCoin(coin);
+        keyPair.setIndex(index);
+        keyPair.setPublicKeyHex(Utils.bytesToHex(publicKey));
+
+        return keyPair;
     }
 
     @Override
     public String sign(String coin, int index, String msg) throws Exception {
+
+
+
+
+
         return "";
     }
 

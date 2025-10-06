@@ -1,10 +1,14 @@
 package com.labs339.platform.algorithm;
 
 import com.labs339.platform.dao.ExtendedKey;
+import com.labs339.platform.dao.KeyPair;
 import com.labs339.platform.enums.AlgorithmType;
+import com.labs339.platform.enums.CoinType;
+import com.labs339.platform.utils.Utils;
 import org.bouncycastle.asn1.sec.SECNamedCurves;
 import org.bouncycastle.asn1.x9.X9ECParameters;
 import org.bouncycastle.math.ec.ECPoint;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
@@ -19,12 +23,33 @@ public class Ecdsa_secp256k1 extends Seed implements AlgorithmStrategy {
 
     @Override
     public AlgorithmType getAlgorithmType() {
-        return AlgorithmType.ECDSA_R1;
+        return AlgorithmType.ECDSA_K1;
     }
 
     @Override
-    public ExtendedKey getKeyPair(int coin, int index) throws Exception {
-        return null;
+    public KeyPair getKeyPair(String coin, int index) throws Exception {
+
+        CoinType coinType = CoinType.getCoinType(coin);
+
+        // path =  m/purpose'/coin_type'/account'/change/address_index   "m/44'/0'/0'/0/0"
+        StringBuffer path = new StringBuffer("m/44'/");
+        if (coinType.getIsEvm()){
+            path.append(CoinType.Ether.getCoinType()+"'/");
+        }else {
+            path.append(coinType.getCoinType()+"'/");
+        }
+        path.append(index);
+        path.append("'/0/0");
+
+        ExtendedKey extendedKey = derivePathSecp256k1(SEED,path.toString());
+        byte[] publicKey = getPublicKeySecp256k1(extendedKey.getKey(),false);
+
+        KeyPair keyPair = new KeyPair();
+        keyPair.setCoin(coin);
+        keyPair.setIndex(index);
+        keyPair.setPublicKeyHex(Utils.bytesToHex(publicKey));
+
+        return keyPair;
     }
 
     @Override

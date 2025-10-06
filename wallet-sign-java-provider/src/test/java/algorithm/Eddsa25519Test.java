@@ -5,6 +5,7 @@ import com.labs339.platform.algorithm.Ecdsa_secp256k1;
 import com.labs339.platform.algorithm.Eddsa_ed25519;
 import com.labs339.platform.dao.ExtendedKey;
 import com.labs339.platform.utils.Utils;
+import org.bitcoinj.core.Base58;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,11 +53,23 @@ public class Eddsa25519Test {
             //  m/purpose'/coin_type'/account'/change/address_index
             String path = "m/44'/501'/0'/0'";
             ExtendedKey key = Eddsa_ed25519.derivePathEd25519(seed,path);
+            String privateKey = Utils.bytesToHex(key.getKey());
+            System.out.println("privateKey:"+privateKey);
             byte[] publickey = Eddsa_ed25519.getPublicKeyEd25519(key.getKey());
+            String address = Base58.encode(publickey);
+            System.out.println("address:"+address);
+            String addressHex = Utils.bytesToHex(publickey);
+            log.info("addressHex:"+addressHex);
 
             String path1 = "m/44'/501'/1'/0'";
             ExtendedKey key1 = Eddsa_ed25519.derivePathEd25519(seed,path1);
+            String privateKey1 = Utils.bytesToHex(key1.getKey());
+            System.out.println("privateKey1:"+privateKey1);
             byte[] publickey1 = Eddsa_ed25519.getPublicKeyEd25519(key1.getKey());
+            String address1 = Base58.encode(publickey1);
+            System.out.println("address1:"+address1);
+            String addressHex1 = Utils.bytesToHex(publickey1);
+            log.info("addressHex1:"+addressHex1);
 
 
         }catch (Exception e){

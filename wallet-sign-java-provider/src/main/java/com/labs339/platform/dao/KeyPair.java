@@ -10,10 +10,10 @@ import java.math.BigInteger;
 @Accessors(chain = true)
 public class KeyPair implements Serializable {
 
-    private BigInteger privateKey;
+    private int index;
 
-    private byte[] publicKey;
+    private String publicKeyHex;
 
-    private byte[] compressPublicKey;
+    private String coin;
 
 }

@@ -23,6 +23,21 @@ public class Utils {
         return result;
     }
 
+    /**
+     * Keccak256哈希（Ethereum使用的哈希算法）
+     * 注意：Keccak256 ≠ SHA3-256
+     *
+     * @param input 输入数据
+     * @return 哈希结果（32字节）
+     */
+    public static byte[] keccak256(byte[] input) {
+        org.bouncycastle.crypto.digests.KeccakDigest digest =
+                new org.bouncycastle.crypto.digests.KeccakDigest(256);
+        digest.update(input, 0, input.length);
+        byte[] hash = new byte[32];
+        digest.doFinal(hash, 0);
+        return hash;
+    }
 
     /**
      * 获取指纹（公钥哈希的前4字节）

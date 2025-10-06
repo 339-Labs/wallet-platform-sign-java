@@ -10,4 +10,8 @@ public class WalletBizException extends BaseBizException {
         super(WalletBizError.BUSINESS_ERROR.getCode(),message, cause);
     }
 
+    public WalletBizException(WalletBizError bizError) {
+        super(bizError.getCode(), bizError.getMessage());
+    }
+
 }
