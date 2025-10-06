@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface WalletService {
 
-    List generateKeyGen(String chain,List<Integer> indexs, AlgorithmType algorithm);
+    List generateKeyGen(String chain,Integer cursor,Integer size);
 
-    String sign(String chain,int index,AlgorithmType algorithm,String unSignMsg);
+    String sign(String chain,int index,String unSignMsg);
 
 }
