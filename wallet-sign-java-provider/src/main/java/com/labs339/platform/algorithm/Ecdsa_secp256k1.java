@@ -7,7 +7,13 @@ import com.labs339.platform.enums.CoinType;
 import com.labs339.platform.utils.Utils;
 import org.bouncycastle.asn1.sec.SECNamedCurves;
 import org.bouncycastle.asn1.x9.X9ECParameters;
+import org.bouncycastle.crypto.params.ECDomainParameters;
+import org.bouncycastle.crypto.params.ECPrivateKeyParameters;
+import org.bouncycastle.crypto.params.ECPublicKeyParameters;
+import org.bouncycastle.crypto.signers.ECDSASigner;
 import org.bouncycastle.math.ec.ECPoint;
+import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +26,18 @@ import static com.labs339.platform.utils.Utils.hmacSha512;
 
 @Component
 public class Ecdsa_secp256k1 extends Seed implements AlgorithmStrategy {
+
+    protected static final X9ECParameters CURVE = SECNamedCurves.getByName("secp256k1");
+    protected static final ECDomainParameters DOMAIN = new ECDomainParameters(
+            CURVE.getCurve(), CURVE.getG(), CURVE.getN(), CURVE.getH()
+    );
+
+    // 继承 Seed 中的方法
+    @Override
+    public void initSeed() {
+        super.initSeed();  // 如果需要保留父类的初始化逻辑，可以调用 super.initSeed();
+        // 你可以根据需要重写父类的 initSeed() 方法
+    }
 
     @Override
     public AlgorithmType getAlgorithmType() {
@@ -47,14 +65,17 @@ public class Ecdsa_secp256k1 extends Seed implements AlgorithmStrategy {
         KeyPair keyPair = new KeyPair();
         keyPair.setCoin(coin);
         keyPair.setIndex(index);
-        keyPair.setPublicKeyHex(Utils.bytesToHex(publicKey));
+        keyPair.setPublicKeyHex(Hex.toHexString(publicKey));
+        keyPair.setPrivateKey(extendedKey.getKey());
 
         return keyPair;
     }
 
     @Override
     public String sign(String coin, int index, String msg) throws Exception {
-        return "";
+        KeyPair keyPair = getKeyPair(coin,index);
+        byte[] signatureByte = sign(keyPair.getPrivateKey(), Base64.decode(msg));
+        return Base64.toBase64String(signatureByte);
     }
 
 
@@ -178,5 +199,84 @@ public class Ecdsa_secp256k1 extends Seed implements AlgorithmStrategy {
     }
 
 
+    /**
+     * 签名数据
+     * @param privateKey 私钥（32字节）
+     * @param messageHash 消息哈希（32字节，通常是SHA256或Keccak256的结果）
+     * @return 签名（DER编码或R+S格式）
+     */
+    public static byte[] sign(byte[] privateKey, byte[] messageHash) throws Exception {
+        // 1. 创建签名器
+        ECDSASigner signer = new ECDSASigner();
+
+        // 2. 设置secp256k1曲线参数
+//        X9ECParameters curve = SECNamedCurves.getByName("secp256k1");
+//        ECDomainParameters domain = new ECDomainParameters(
+//                curve.getCurve(),
+//                curve.getG(),
+//                curve.getN(),
+//                curve.getH()
+//        );
+
+        // 3. 初始化私钥
+        BigInteger d = new BigInteger(1, privateKey);
+        ECPrivateKeyParameters privKey = new ECPrivateKeyParameters(d, DOMAIN);
+
+        // 4. 初始化签名器
+        signer.init(true, privKey);
+
+        // 5. 签名
+        BigInteger[] signature = signer.generateSignature(messageHash);
+        BigInteger r = signature[0];
+        BigInteger s = signature[1];
+
+        // 6 规范化s值（防止交易可塑性）
+        BigInteger halfCurveOrder = CURVE.getN().shiftRight(1);
+        if (s.compareTo(halfCurveOrder) > 0) {
+            s = CURVE.getN().subtract(s);
+        }
+
+        // 7. 返回R+S格式（64字节）
+        byte[] result = new byte[64];
+        byte[] rBytes = Utils.toBytesPadded(r, 32);
+        byte[] sBytes = Utils.toBytesPadded(s, 32);
+        System.arraycopy(rBytes, 0, result, 0, 32);
+        System.arraycopy(sBytes, 0, result, 32, 32);
+        return result;
+
+    }
+
+    /**
+     * 验证签名
+     * @param publicKey 公钥（未压缩格式，65字节）
+     * @param messageHash 消息哈希
+     * @param signature 签名（64字节：R+S）
+     * @return 是否验证通过
+     */
+    public static boolean verify(byte[] publicKey, byte[] messageHash, byte[] signature) {
+        try {
+            // 1. 解码签名
+            BigInteger r = new BigInteger(1, Arrays.copyOfRange(signature, 0, 32));
+            BigInteger s = new BigInteger(1, Arrays.copyOfRange(signature, 32, 64));
+
+            // 2. 解析公钥
+            X9ECParameters curve = SECNamedCurves.getByName("secp256k1");
+            ECPoint point = curve.getCurve().decodePoint(publicKey);
+
+            ECDomainParameters domain = new ECDomainParameters(
+                    curve.getCurve(), curve.getG(), curve.getN(), curve.getH()
+            );
+            ECPublicKeyParameters pubKey = new ECPublicKeyParameters(point, domain);
+
+            // 3. 验证
+            ECDSASigner verifier = new ECDSASigner();
+            verifier.init(false, pubKey);
+
+            return verifier.verifySignature(messageHash, r, s);
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 }

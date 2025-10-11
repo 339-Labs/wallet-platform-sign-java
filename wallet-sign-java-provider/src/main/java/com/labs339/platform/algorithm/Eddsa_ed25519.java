@@ -6,6 +6,13 @@ import com.labs339.platform.enums.AlgorithmType;
 import com.labs339.platform.enums.CoinType;
 import com.labs339.platform.enums.DepthEnum;
 import com.labs339.platform.utils.Utils;
+import org.bouncycastle.crypto.params.Ed25519PrivateKeyParameters;
+import org.bouncycastle.crypto.params.Ed25519PublicKeyParameters;
+import org.bouncycastle.crypto.signers.Ed25519Signer;
+import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.encoders.Hex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.nio.ByteBuffer;
@@ -16,6 +23,15 @@ import static com.labs339.platform.utils.Utils.hmacSha512;
 
 @Component
 public class Eddsa_ed25519 extends Seed implements AlgorithmStrategy{
+    private static final Logger log = LoggerFactory.getLogger(Eddsa_ed25519.class);
+
+    // 继承 Seed 中的方法
+    @Override
+    public void initSeed() {
+        super.initSeed();  // 如果需要保留父类的初始化逻辑，可以调用 super.initSeed();
+        // 你可以根据需要重写父类的 initSeed() 方法
+    }
+
     @Override
     public AlgorithmType getAlgorithmType() {
         return AlgorithmType.EDDSA_25519;
@@ -42,7 +58,8 @@ public class Eddsa_ed25519 extends Seed implements AlgorithmStrategy{
         KeyPair keyPair = new KeyPair();
         keyPair.setCoin(coin);
         keyPair.setIndex(index);
-        keyPair.setPublicKeyHex(Utils.bytesToHex(publicKey));
+        keyPair.setPublicKeyHex(Hex.toHexString(publicKey));
+        keyPair.setPrivateKey(extendedKey.getKey());
 
         return keyPair;
     }
@@ -50,11 +67,11 @@ public class Eddsa_ed25519 extends Seed implements AlgorithmStrategy{
     @Override
     public String sign(String coin, int index, String msg) throws Exception {
 
+        KeyPair keyPair = getKeyPair(coin,index);
 
+        byte[] signatureByte = sign(keyPair.getPrivateKey(), Base64.decode(msg));
 
-
-
-        return "";
+        return Base64.toBase64String(signatureByte);
     }
 
 
@@ -162,10 +179,12 @@ public class Eddsa_ed25519 extends Seed implements AlgorithmStrategy{
             } catch (Exception ex) {
                 // 如果都不可用，使用简化的占位符
                 // 实际生产环境必须正确实现
+                log.error("Ed25519 public key derivation failed",ex);
                 throw new RuntimeException("Ed25519 public key derivation failed", ex);
             }
         }
     }
+
 
     /**
      * 使用 BouncyCastle 实现 Ed25519 公钥派生（备选方案）
@@ -183,6 +202,60 @@ public class Eddsa_ed25519 extends Seed implements AlgorithmStrategy{
 
         return publicKey;
     }
+
+
+    /**
+     * 签名数据
+     * @param privateKey 私钥（32字节）
+     * @param message 原始消息（任意长度）
+     * @return 签名（64字节）
+     */
+    public static byte[] sign(byte[] privateKey, byte[] message) {
+        // 1. 创建签名器
+        Ed25519Signer signer = new Ed25519Signer();
+
+        // 2. 初始化私钥
+        Ed25519PrivateKeyParameters privKey = new Ed25519PrivateKeyParameters(privateKey, 0);
+
+        // 3. 初始化签名器
+        signer.init(true, privKey);
+
+        // 4. 更新消息
+        signer.update(message, 0, message.length);
+
+        // 5. 生成签名
+        return signer.generateSignature();
+    }
+
+    /**
+     * 验证签名
+     * @param publicKey 公钥（32字节）
+     * @param message 原始消息
+     * @param signature 签名（64字节）
+     * @return 是否验证通过
+     */
+    public static boolean verify(byte[] publicKey, byte[] message, byte[] signature) {
+        try {
+            // 1. 创建验证器
+            Ed25519Signer verifier = new Ed25519Signer();
+
+            // 2. 初始化公钥
+            Ed25519PublicKeyParameters pubKey = new Ed25519PublicKeyParameters(publicKey, 0);
+
+            // 3. 初始化验证器
+            verifier.init(false, pubKey);
+
+            // 4. 更新消息
+            verifier.update(message, 0, message.length);
+
+            // 5. 验证签名
+            return verifier.verifySignature(signature);
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 
 
 }

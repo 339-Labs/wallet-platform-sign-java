@@ -16,4 +16,6 @@ public class KeyPair implements Serializable {
 
     private String coin;
 
+    private byte[] privateKey;
+
 }

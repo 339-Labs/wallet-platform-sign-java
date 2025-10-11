@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package labs339.wallet.sign;
+//option go_package = "./protobuf/wallet";
+option java_multiple_files = true;
+option java_package = "com.labs339.platform";
+option java_outer_classname = "WalletSignProto";
+
+message SupportSignWayRequest{
+  string chain = 1;
+  string type = 2;
+}
+
+message SupportSignWayResponse {
+  string code = 1;
+  string msg = 2;
+  bool support = 3;
+}
+
+message ExportPublicKeyRequest {
+  string wallet = 1;
+  string chain = 2;
+  uint64 cursor = 3;
+  uint64 size = 4;
+}
+
+message ExportPublicKeyResponse {
+  string code = 1;
+  string msg = 2;
+  repeated PublicKey public_key = 3;
+}
+
+message PublicKey {
+  string wallet = 1;
+  string chain = 2;
+  string public_key_hex = 3;
+  uint64 index = 4;
+}
+
+message SignTxMessageRequest {
+  string wallet = 1;
+  string chain = 2;
+  uint64 index = 3;
+  string un_sign_msg = 4;
+}
+
+message SignTxMessageResponse {
+  string code = 1;
+  string msg = 2;
+  string signature = 3;
+}
+
+service WalletSignService {
+  rpc getSupportSignWay(SupportSignWayRequest) returns (SupportSignWayResponse) {}
+  rpc exportPublicKeyList(ExportPublicKeyRequest) returns (ExportPublicKeyResponse) {}
+  rpc signTxMessage(SignTxMessageRequest) returns (SignTxMessageResponse) {}
+}

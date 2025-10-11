@@ -5,6 +5,7 @@ import org.bouncycastle.crypto.macs.HMac;
 import org.bouncycastle.crypto.params.KeyParameter;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
@@ -20,6 +21,19 @@ public class Utils {
         hmac.update(data, 0, data.length);
         byte[] result = new byte[64];
         hmac.doFinal(result, 0);
+        return result;
+    }
+
+    /**
+     * 给byte 添加前缀
+     * @param prefix
+     * @param input
+     * @return
+     */
+    public static byte[] addBytePrefix(byte[] prefix, byte[] input) {
+        byte[] result = new byte[prefix.length + input.length];
+        System.arraycopy(prefix, 0, result, 0, prefix.length);
+        System.arraycopy(input, 0, result, prefix.length, input.length);
         return result;
     }
 
@@ -74,5 +88,30 @@ public class Utils {
         return data;
     }
 
+    /**
+     * 将BigInteger转换为固定长度字节数组
+     */
+    public static byte[] toBytesPadded(BigInteger value, int length) {
+        byte[] result = new byte[length];
+        byte[] bytes = value.toByteArray();
+
+        int bytesLength;
+        int srcOffset;
+        if (bytes[0] == 0) {
+            bytesLength = bytes.length - 1;
+            srcOffset = 1;
+        } else {
+            bytesLength = bytes.length;
+            srcOffset = 0;
+        }
+
+        if (bytesLength > length) {
+            throw new RuntimeException("Input is too large");
+        }
+
+        int destOffset = length - bytesLength;
+        System.arraycopy(bytes, srcOffset, result, destOffset, bytesLength);
+        return result;
+    }
 
 }

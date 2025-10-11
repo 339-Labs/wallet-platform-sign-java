@@ -10,6 +10,7 @@ import com.labs339.platform.service.WalletService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.labs339.platform.exception.WalletBizError.GIN_ERROR;
@@ -19,21 +20,33 @@ import static com.labs339.platform.exception.WalletBizError.KEN_GEN_ERROR;
 @Service
 public class WalletServiceImpl implements WalletService {
     @Override
-    public List generateKeyGen(String chain, Integer cursor,Integer size) {
+    public Boolean getSupportSignWay(String chain) {
+
+        CoinType coinType = CoinType.getCoinType(chain);
+        if (coinType == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public List<KeyPair> generateKeyGen(String chain, Integer cursor,Integer size) {
 
         // index 从 cursor 开始
         CoinType coinType = CoinType.getCoinType(chain);
         AlgorithmStrategy algorithmStrategy = coinType.getAlgorithmStrategy();
         int end = cursor + size;
+        List<KeyPair> keyPairList = new ArrayList<>();
         try {
             for (; cursor < end; cursor++) {
                 KeyPair keyPair = algorithmStrategy.getKeyPair(coinType.getCoin(),cursor);
+                keyPairList.add(keyPair);
             }
         }catch (Exception e){
             log.error("generateKeyGen error ,chain {}, cursor {}, size {}", chain, cursor, size,e);
-            throw new WalletBizException(KEN_GEN_ERROR);
+            return keyPairList;
         }
-        return List.of();
+        return keyPairList;
     }
 
     @Override
@@ -46,7 +59,7 @@ public class WalletServiceImpl implements WalletService {
             return signMsg;
         }catch (Exception e){
             log.error("sign error ,chain {}, cursor {}, unSignMsg {}", chain, index, unSignMsg, e);
-            throw new WalletBizException(GIN_ERROR);
+            return "";
         }
 
     }
