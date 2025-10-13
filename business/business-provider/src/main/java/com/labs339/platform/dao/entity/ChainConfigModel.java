@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.labs339.platform.baseDto.BaseChainInfo;
 import com.labs339.platform.baseDto.BaseEntity;
 import lombok.Data;
 
@@ -44,5 +45,12 @@ public class ChainConfigModel extends BaseEntity {
     @TableField(value = "original_token_decimal")   // 映射 `original_token_decimal` 字段
     private Integer originalTokenDecimal;
 
+    public static BaseChainInfo toChainRsp(ChainConfigModel chainConfigModel){
+        BaseChainInfo baseChainInfo = new BaseChainInfo();
+        baseChainInfo.setChainId(chainConfigModel.getChainId());
+        baseChainInfo.setChainName(chainConfigModel.getChainName());
+        baseChainInfo.setChainFullName(chainConfigModel.getChainFullName());
+        return baseChainInfo;
+    }
 
 }

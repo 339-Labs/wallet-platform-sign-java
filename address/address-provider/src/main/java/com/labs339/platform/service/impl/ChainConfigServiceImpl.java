@@ -8,9 +8,7 @@ import com.labs339.platform.dao.entity.ChainConfigModel;
 import com.labs339.platform.dao.mapper.ChainConfigMapper;
 import com.labs339.platform.service.ChainConfigService;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -20,16 +18,4 @@ import java.util.List;
 @Slf4j
 public class ChainConfigServiceImpl extends ServiceImpl<ChainConfigMapper, ChainConfigModel> implements ChainConfigService {
 
-    @Autowired
-    private ChainInfoConfig chainInfoConfig;
-
-    @Override
-    public CommonResponse GetChainList() {
-        List<BaseChainInfo> chainInfos = new LinkedList<>();
-        chainInfoConfig.getChainConfigMap().forEach((k, v) -> {
-            BaseChainInfo chainInfo = ChainConfigModel.toChainRsp(v);
-            chainInfos.add(chainInfo);
-        });
-        return CommonResponse.success(chainInfos);
-    }
 }

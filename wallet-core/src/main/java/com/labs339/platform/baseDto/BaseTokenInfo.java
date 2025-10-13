@@ -13,4 +13,6 @@ public class BaseTokenInfo extends BaseChainInfo {
 
     private boolean isOrigin;
 
+    private Integer tokenDecimal;
+
 }

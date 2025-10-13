@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class BaseChainInfo {
 
-    private String chainId;
+    private Integer chainId;
 
     private String chainName;
 

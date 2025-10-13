@@ -1,17 +1,9 @@
 package com.labs339.platform.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.labs339.platform.baseDto.BaseChainInfo;
-import com.labs339.platform.baseDto.BaseTokenInfo;
 import com.labs339.platform.common.CommonResponse;
 import com.labs339.platform.dao.entity.TokenConfigModel;
 
 public interface TokenConfigService extends IService<TokenConfigModel> {
-
-
-    CommonResponse GetTokenList();
-
-    CommonResponse GetTokenChainList();
-
 
 }

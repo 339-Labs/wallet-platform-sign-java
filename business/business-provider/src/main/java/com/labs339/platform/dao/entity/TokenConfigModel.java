@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.labs339.platform.baseDto.BaseEntity;
+import com.labs339.platform.baseDto.BaseTokenInfo;
 import lombok.Data;
 
 @Data
@@ -35,5 +36,15 @@ public class TokenConfigModel extends BaseEntity {
     @TableField(value = "token_decimal")           // 映射 `token_decimal` 字段
     private Integer tokenDecimal;
 
+    public static BaseTokenInfo toTokenRsp(TokenConfigModel tokenConfigModel){
+        BaseTokenInfo baseTokenInfo = new BaseTokenInfo();
+        baseTokenInfo.setChainId(tokenConfigModel.getChainId());
+        baseTokenInfo.setChainName(tokenConfigModel.getChainName());
+        baseTokenInfo.setChainFullName(tokenConfigModel.getTokenFullName());
+        baseTokenInfo.setTokenName(tokenConfigModel.getTokenName());
+        baseTokenInfo.setTokenFullName(tokenConfigModel.getTokenFullName());
+        baseTokenInfo.setTokenDecimal(tokenConfigModel.getTokenDecimal());
+        return baseTokenInfo;
+    }
 
 }

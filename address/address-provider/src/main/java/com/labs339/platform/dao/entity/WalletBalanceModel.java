@@ -17,18 +17,18 @@ public class WalletBalanceModel extends BaseEntity {
     private Long id;
 
     @TableField(value = "user_id")         // 映射 `user_id` 字段
-    private Long user_id;
+    private Long userId;
 
     @TableField(value = "token_name")                // 映射 `token_name` 字段
-    private BigDecimal token_name;
+    private String tokenName;
 
     @TableField(value = "total_amount")              // 映射 `total_amount` 字段
-    private BigDecimal total_amount;
+    private BigDecimal totalAmount;
 
     @TableField(value = "available_amount")           // 映射 `available_amount` 字段
-    private BigDecimal available_amount;
+    private BigDecimal availableAmount;
 
     @TableField(value = "lock_amount")              // 映射 `lock_amount` 字段
-    private BigDecimal lock_amount;
+    private BigDecimal lockAmount;
 
 }

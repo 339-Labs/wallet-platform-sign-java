@@ -24,6 +24,11 @@
             <artifactId>address-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.labs339.platform</groupId>
+            <artifactId>grpc-internal</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

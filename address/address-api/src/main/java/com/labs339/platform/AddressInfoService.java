@@ -8,7 +8,7 @@ public interface AddressInfoService {
 
     CommonResponse GetAddressInfo(String address,String chainName,String chainType);
 
-    CommonResponse GetAddressUpdateNonce();
+    CommonResponse GetAddressUpdateNonce(String address,String chainName,Integer chainId);
 
 }
 

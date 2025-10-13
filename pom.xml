@@ -15,6 +15,7 @@
         <module>transaction</module>
         <module>address</module>
         <module>wallet-core</module>
+        <module>grpc-internal</module>
     </modules>
 
 
@@ -52,6 +53,7 @@
 
         <!-- XXL-Job -->
         <xxl.job.version>3.2.0</xxl.job.version>
+        <grpc.server.version>3.1.0.RELEASE</grpc.server.version>
 
         <!-- Other -->
         <lombok.version>1.18.30</lombok.version>
@@ -169,6 +171,13 @@
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl.job.version}</version>
+            </dependency>
+
+<!--            grpc 服务端需要的-->
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-server-spring-boot-starter</artifactId>
+                <version>${grpc.server.version}</version>
             </dependency>
 
             <!-- Utils -->

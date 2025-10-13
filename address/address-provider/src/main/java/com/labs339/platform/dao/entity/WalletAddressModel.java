@@ -15,7 +15,7 @@ public class WalletAddressModel extends BaseEntity {
     private Long id;
 
     @TableField(value = "user_id")         // 映射 `user_id` 字段
-    private Long user_id;
+    private Long userId;
 
     @TableField(value = "address")                // 映射 `address` 字段
     private String address;

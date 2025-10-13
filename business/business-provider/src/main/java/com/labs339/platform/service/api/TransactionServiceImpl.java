@@ -1,4 +1,4 @@
-package com.labs339.platform.api;
+package com.labs339.platform.service.api;
 
 import com.labs339.platform.TransactionService;
 import com.labs339.platform.common.CommonResponse;

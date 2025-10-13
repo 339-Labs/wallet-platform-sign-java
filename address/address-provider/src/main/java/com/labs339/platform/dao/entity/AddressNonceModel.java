@@ -18,7 +18,7 @@ public class AddressNonceModel extends BaseEntity {
     private String address;
 
     @TableField(value = "nonce")
-    private String nonce;
+    private Integer nonce;
 
     @TableField(value = "chain_id")
     private Integer chainId;
