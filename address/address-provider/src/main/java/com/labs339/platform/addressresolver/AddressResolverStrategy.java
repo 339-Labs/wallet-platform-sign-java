@@ -8,11 +8,11 @@ public interface AddressResolverStrategy {
 
     /**
      * 同一个链有多种地址可配置，为空使用默认的
-     * @param address
+     * @param addressHex
      * @param addressType
      * @return
      */
-    String resolve(String address,String addressType);
+    String resolve(String addressHex,String addressType);
 
     ChainType getChainType();
 

@@ -34,6 +34,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
+<!--        grpc客户端-->
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+        </dependency>
+
         <!-- 注册中心 Nacos，  跟随 BOM 管理，与 Spring Cloud Alibaba 对应-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
