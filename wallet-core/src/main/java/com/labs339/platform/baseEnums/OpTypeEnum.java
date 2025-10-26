@@ -1,6 +1,6 @@
 package com.labs339.platform.baseEnums;
 
-public enum OpTypeEnums {
+public enum OpTypeEnum {
 
     WITHDRAW(1, "withdraw"),
     DEPOSIT(2, "deposit"),
@@ -9,7 +9,7 @@ public enum OpTypeEnums {
     public final int code;
     public final String value;
 
-    OpTypeEnums(int code, String value) {
+    OpTypeEnum(int code, String value) {
         this.code = code;
         this.value = value;
     }

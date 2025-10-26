@@ -89,6 +89,12 @@
             <artifactId>xxl-job-core</artifactId>
         </dependency>
 
+        <!-- BIP39 助记词库，base58编码（可选，用于从助记词生成种子） -->
+        <dependency>
+            <groupId>org.bitcoinj</groupId>
+            <artifactId>bitcoinj-core</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

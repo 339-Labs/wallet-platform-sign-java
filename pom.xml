@@ -62,9 +62,12 @@
         <hutool.version>5.8.23</hutool.version>
         <knife4j.version>4.4.0</knife4j.version>
         <fastjson2.version>2.0.57</fastjson2.version>
+        <okhttp.version>4.9.3</okhttp.version>
 
-<!--        加密数据库-->
+<!--        加密数据库  1.78.1-->
         <bcprov.version>1.77</bcprov.version>
+        <bitcoinj.version>0.16.2</bitcoinj.version>
+        <web3j.version>4.10.3</web3j.version>
 
     </properties>
 
@@ -224,12 +227,32 @@
                 <optional>true</optional>
             </dependency>
 
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version> <!-- 请检查最新版 -->
+            </dependency>
+
 
             <!-- BouncyCastle 加密库 -->
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk18on</artifactId>
                 <version>${bcprov.version}</version>
+            </dependency>
+
+            <!-- BIP39 助记词库，base58编码（可选，用于从助记词生成种子） -->
+            <dependency>
+                <groupId>org.bitcoinj</groupId>
+                <artifactId>bitcoinj-core</artifactId>
+                <version>${bitcoinj.version}</version>
+            </dependency>
+
+            <!-- Web3j） -->
+            <dependency>
+                <groupId>org.web3j</groupId>
+                <artifactId>core</artifactId>
+                <version>${web3j.version}</version>
             </dependency>
 
         </dependencies>

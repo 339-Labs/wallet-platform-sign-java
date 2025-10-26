@@ -9,4 +9,8 @@ public interface TransactionService {
 
     CommonResponse GetTransactionByTxHash(String hash,String chainName);
 
+    CommonResponse GetAddressAmount(String address,String tokenAddress,String chainName);
+
+    CommonResponse GetLatestBlock(String chainName);
+
 }

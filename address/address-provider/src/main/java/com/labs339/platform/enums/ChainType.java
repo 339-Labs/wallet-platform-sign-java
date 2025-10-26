@@ -2,13 +2,16 @@ package com.labs339.platform.enums;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 public enum ChainType {
 
     // secp256k1
-    Ether("60","ETH","Ether","EVM"),
-    Arbitrum("9001","ARB1","Arbitrum","EVM"),
-    Optimistic("614","OPT","Optimistic","EVM"),
+    Ethereum("60","ETH","Ethereum","evm"),
+    Arbitrum("9001","ARB1","Arbitrum","evm"),
+    Optimistic("614","OPT","Optimistic","evm"),
 
     Tron("195","TRX","Tron","Tron"),
 
@@ -30,17 +33,6 @@ public enum ChainType {
         this.symbol = symbol;
         this.chainName = chainName;
         this.chainType = chainType;
-    }
-
-    public static ChainType getSignAddressType(ChainType chainType) {
-        if (chainType == null) {
-            return null;
-        }
-        if (chainType.getChainType() == ChainType.Ether.getChainType()) {
-            return Ether;
-        }else {
-            return chainType;
-        }
     }
 
 }

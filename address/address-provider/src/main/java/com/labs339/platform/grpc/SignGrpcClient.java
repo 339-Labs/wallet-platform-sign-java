@@ -19,8 +19,8 @@ public class SignGrpcClient implements DisposableBean {
     private final String host;
     private final int port;
 
-    public SignGrpcClient(@Value("${grpc.server.host}") String host,
-                          @Value("${grpc.server.port}") int port) {
+    public SignGrpcClient(@Value("${signgrpc.server.host}") String host,
+                          @Value("${signgrpc.server.port}") int port) {
         this.host = host;
         this.port = port;
         this.channel = createChannel();

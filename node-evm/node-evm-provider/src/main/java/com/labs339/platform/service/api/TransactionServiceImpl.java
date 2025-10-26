@@ -17,4 +17,14 @@ public class TransactionServiceImpl implements TransactionService {
     public CommonResponse GetTransactionByTxHash(String hash, String chainName) {
         return null;
     }
+
+    @Override
+    public CommonResponse GetAddressAmount(String address,String tokenAddress, String chainName) {
+        return null;
+    }
+
+    @Override
+    public CommonResponse GetLatestBlock(String chainName) {
+        return null;
+    }
 }

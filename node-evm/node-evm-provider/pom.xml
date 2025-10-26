@@ -78,6 +78,10 @@
             <artifactId>xxl-job-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
 
     </dependencies>
 

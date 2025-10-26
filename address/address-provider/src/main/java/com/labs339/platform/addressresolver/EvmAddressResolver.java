@@ -22,7 +22,7 @@ public class EvmAddressResolver implements AddressResolverStrategy {
 
     @Override
     public ChainType getChainType() {
-        return ChainType.Ether;
+        return ChainType.Ethereum;
     }
 
 

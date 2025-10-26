@@ -41,7 +41,7 @@ public class AddressPoolHandler {
         long size= 10L;
         long cursor= 0L;
 
-        ChainType chainType = ChainType.Ether;
+        ChainType chainType = ChainType.Ethereum;
 
         ChainConfigModel configModel = chainInfoConfig.getChainConfigMap().get(chainType.getChainName());
 

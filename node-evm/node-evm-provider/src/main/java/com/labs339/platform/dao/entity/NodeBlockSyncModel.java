@@ -14,6 +14,7 @@ public class NodeBlockSyncModel extends BaseEntity {
     @TableId(value = "id",type = IdType.ASSIGN_ID)        // 映射 `id` 字段
     private Long id;
 
+    @Deprecated
     @TableField(value = "latest_block_num")                 // 映射 `latest_block_num` 字段
     private Long latestBlockNum;
 

@@ -1,8 +1,6 @@
 package com.labs339.platform.addressresolver;
 
 import com.labs339.platform.enums.ChainType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 public interface AddressResolverStrategy {
 
