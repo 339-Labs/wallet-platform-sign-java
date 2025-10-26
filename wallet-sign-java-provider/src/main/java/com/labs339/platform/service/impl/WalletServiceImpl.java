@@ -20,9 +20,9 @@ import static com.labs339.platform.exception.WalletBizError.KEN_GEN_ERROR;
 @Service
 public class WalletServiceImpl implements WalletService {
     @Override
-    public Boolean getSupportSignWay(String chain) {
+    public Boolean getSupportSignWay(String chainFullName) {
 
-        CoinType coinType = CoinType.getCoinType(chain);
+        CoinType coinType = CoinType.getCoinType(chainFullName);
         if (coinType == null) {
             return false;
         }
@@ -30,10 +30,10 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public List<KeyPair> generateKeyGen(String chain, Integer cursor,Integer size) {
+    public List<KeyPair> generateKeyGen(String chainFullName, Integer cursor,Integer size) {
 
         // index 从 cursor 开始
-        CoinType coinType = CoinType.getCoinType(chain);
+        CoinType coinType = CoinType.getCoinType(chainFullName);
         AlgorithmStrategy algorithmStrategy = coinType.getAlgorithmStrategy();
         int end = cursor + size;
         List<KeyPair> keyPairList = new ArrayList<>();
@@ -43,22 +43,22 @@ public class WalletServiceImpl implements WalletService {
                 keyPairList.add(keyPair);
             }
         }catch (Exception e){
-            log.error("generateKeyGen error ,chain {}, cursor {}, size {}", chain, cursor, size,e);
+            log.error("generateKeyGen error ,chain {}, cursor {}, size {}", chainFullName, cursor, size,e);
             return keyPairList;
         }
         return keyPairList;
     }
 
     @Override
-    public String sign(String chain, int index, String unSignMsg) {
+    public String sign(String chainFullName, int index, String unSignMsg) {
 
-        CoinType coinType = CoinType.getCoinType(chain);
+        CoinType coinType = CoinType.getCoinType(chainFullName);
         AlgorithmStrategy algorithmStrategy = coinType.getAlgorithmStrategy();
         try {
             String signMsg = algorithmStrategy.sign(coinType.getCoin(),index,unSignMsg);
             return signMsg;
         }catch (Exception e){
-            log.error("sign error ,chain {}, cursor {}, unSignMsg {}", chain, index, unSignMsg, e);
+            log.error("sign error ,chain {}, cursor {}, unSignMsg {}", chainFullName, index, unSignMsg, e);
             return "";
         }
 

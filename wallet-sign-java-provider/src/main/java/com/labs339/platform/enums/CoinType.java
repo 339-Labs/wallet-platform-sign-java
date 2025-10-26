@@ -15,8 +15,8 @@ public enum CoinType {
 
     // secp256k1
     Bitcoin("0","0x80000000","BTC","Bitcoin",DepthEnum.Five,false, Ecdsa_secp256k1_btc.class),
-    Ether("60","0x8000003c","ETH","Ether",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
-    Ether_Sepolia("60","0x8000003c","ETH","Ether_Sepolia",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
+    Ethereum("60","0x8000003c","ETH","Ethereum",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
+    Ethereum_Sepolia("60","0x8000003c","ETH","Ethereum_Sepolia",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
     Arbitrum("9001","0x80002329","ARB1","Arbitrum",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
     Arbitrum_Sepolia("9001","0x80002329","ARB1","Arbitrum_Sepolia",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
     Optimistic("614","0x80000266","OPT","Optimistic",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
@@ -25,8 +25,9 @@ public enum CoinType {
 
     // edd25519
     Solana("501","0x800001f5","SOL","Solana",DepthEnum.Four,false, Eddsa_ed25519.class),
+    Solana_Test("501","0x800001f5","SOL","Solana_Test",DepthEnum.Four,false, Eddsa_ed25519.class),
     Cardano("1815","0x80000717","ADA","Cardano",DepthEnum.Five,false, Eddsa_ed25519.class),
-    NEAR("397","0x8000018d","NEAR","NEAR Protocol",DepthEnum.Three,false, Eddsa_ed25519.class),;
+    NEAR("397","0x8000018d","NEAR","Near_Protocol",DepthEnum.Three,false, Eddsa_ed25519.class),;
 
     private final String coinType;
     private final String pathComponent;
@@ -50,9 +51,9 @@ public enum CoinType {
     }
 
 
-    public static CoinType getCoinType(String coin) {
+    public static CoinType getCoinType(String chainName) {
         for (CoinType coinType : CoinType.values()) {
-            if (coinType.getCoin().equals(coin)) {
+            if (coinType.getCoin().equals(chainName)) {
                 return coinType;
             }
         }

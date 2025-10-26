@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface WalletService {
 
-    Boolean getSupportSignWay(String chain);
+    Boolean getSupportSignWay(String chainFullName);
 
-    List<KeyPair> generateKeyGen(String chain, Integer cursor, Integer size);
+    List<KeyPair> generateKeyGen(String chainFullName, Integer cursor, Integer size);
 
-    String sign(String chain,int index,String unSignMsg);
+    String sign(String chainFullName,int index,String unSignMsg);
 
 }
