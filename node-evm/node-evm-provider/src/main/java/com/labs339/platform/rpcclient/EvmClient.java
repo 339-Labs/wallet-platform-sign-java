@@ -149,34 +149,4 @@ public class EvmClient implements ChainRpcClient<Web3j> {
         return ChainTxType.Ethereum;
     }
 
-//    @Autowired
-//    private ChainInfoConfig chainInfoConfig;
-
-//    // 多链Web3j实例映射
-//    private final Map<String, Web3j> web3jMap = new ConcurrentHashMap<>();
-
-//    /**
-//     * 初始化方法 - 启动时自动执行
-//     * 可以从配置文件或数据库加载链配置
-//     */
-//    @PostConstruct
-//    public void init() {
-//        log.info("Initializing EvmRpcClient...");
-//
-//        // 初始化所有链的Web3j实例
-//        chainInfoConfig.getChainConfigMap().forEach((s, chainConfig) -> {
-//            try {
-//                Web3j web3j = Web3j.build(new HttpService(chainConfig.getChainRpc()));
-//                web3jMap.put(chainConfig.getChainName(), web3j);
-//                // 测试连接
-//                String version = web3j.web3ClientVersion().send().getWeb3ClientVersion();
-//                log.info("Chain [{}] connected successfully. Client version: {}", chainConfig.getChainName(), version);
-//            } catch (Exception e) {
-//                log.error("Failed to initialize chain [{}] with RPC: {}", chainConfig.getChainName(), chainConfig.getChainRpc(), e);
-//            }
-//        });
-//
-//        log.info("EvmRpcClient initialized successfully with {} chains", web3jMap.size());
-//    }
-
 }

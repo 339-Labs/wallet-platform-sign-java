@@ -8,8 +8,8 @@ import com.labs339.platform.baseDto.BaseEntity;
 import lombok.Data;
 
 @Data
-@TableName("node_block_sync_height")
-public class NodeBlockSyncModel extends BaseEntity {
+@TableName("chain_block_height")
+public class ChainBlockHeightModel extends BaseEntity {
 
     @TableId(value = "id",type = IdType.ASSIGN_ID)        // 映射 `id` 字段
     private Long id;
@@ -20,6 +20,9 @@ public class NodeBlockSyncModel extends BaseEntity {
 
     @TableField(value = "current_block_num")               // 映射 `current_block_num` 字段
     private Long currentBlockNum;
+
+    @TableField(value = "current_block_hash")               // 映射 `current_block_num` 字段
+    private Long currentBlockHash;
 
     @TableField(value = "chain_config_id")          // 映射 `chain_config_id` 字段
     private Long chainConfigId;

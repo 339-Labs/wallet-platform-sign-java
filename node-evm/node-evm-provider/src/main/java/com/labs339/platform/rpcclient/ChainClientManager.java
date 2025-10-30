@@ -2,9 +2,11 @@ package com.labs339.platform.rpcclient;
 
 import com.labs339.platform.config.ChainInfoConfig;
 import com.labs339.platform.enums.ChainTxType;
+import com.labs339.platform.txresolver.TxResolverStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -35,12 +37,12 @@ public class ChainClientManager implements DisposableBean {
     // 链名称 -> 客户端映射
     private final Map<String, ChainRpcClient<?>> clientRegistry = new ConcurrentHashMap<>();
 
-
     @PostConstruct
     public void init() {
         log.info("Initializing BlockchainClientManager...");
 
         chainInfoConfig.getChainConfigMap().forEach((key, chainConfig) -> {
+            // 可限制初始化 具体链
 //            if (!chainConfig.getEnabled()) {
 //                log.info("Chain [{}] is disabled, skipping", chainConfig.getChainName());
 //                return;
@@ -52,8 +54,7 @@ public class ChainClientManager implements DisposableBean {
                 client.initializeChain(chainConfig.getChainName(), chainConfig.getChainRpc());
                 clientRegistry.put(chainConfig.getChainName(), client);
             } else {
-                log.error("Unsupported chain type: {} for chain [{}]",
-                        chainConfig.getChainType(), chainConfig.getChainName());
+                log.error("Unsupported chain type: {} for chain {}", chainConfig.getChainType(), chainConfig.getChainName());
             }
         });
 

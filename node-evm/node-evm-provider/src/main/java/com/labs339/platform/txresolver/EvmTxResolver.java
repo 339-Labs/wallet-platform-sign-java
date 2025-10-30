@@ -1,5 +1,6 @@
 package com.labs339.platform.txresolver;
 
+import com.labs339.platform.dao.entity.ChainConfigModel;
 import com.labs339.platform.enums.ChainTxType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class EvmTxResolver implements TxResolverStrategy {
 
     @Override
-    public String resolve(String tx,String chainName) {
+    public String resolve(String tx, ChainConfigModel chainConfig) {
 
 
 
