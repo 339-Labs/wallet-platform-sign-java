@@ -11,8 +11,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TxTypeEnum {
 
-    Ether(1,"EIP-1559",CoinType.Ether),
-    Ether_Sepolia(11155111,"EIP-1559",CoinType.Ether_Sepolia),
+    Ether(1,"EIP-1559",CoinType.Ethereum),
+    Ether_Sepolia(11155111,"EIP-1559",CoinType.Ethereum_Sepolia),
     Arbitrum(42161,"EIP-1559",CoinType.Arbitrum),
     Arbitrum_Sepolia(421614,"EIP-1559",CoinType.Arbitrum_Sepolia),
     Optimistic(10,"EIP-1559",CoinType.Optimistic),
