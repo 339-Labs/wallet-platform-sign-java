@@ -5,5 +5,5 @@ import com.labs339.platform.dao.entity.ChainBlockHeightModel;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface NodeBlockSyncMapper extends BaseMapper<ChainBlockHeightModel> {
+public interface ChainBlockHeightMapper extends BaseMapper<ChainBlockHeightModel> {
 }

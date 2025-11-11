@@ -16,7 +16,7 @@ public class SolanaAddressResolver implements AddressResolverStrategy {
         try {
             address = Base58.encode(bytes);
         }catch (Exception e){
-            log.error("evm public to address error , hex {}",addressHex,e.getMessage());
+            log.error("evm public to address error , hex {}，msg {}",addressHex,e.getMessage(),e);
         }
         return address;
     }
