@@ -45,7 +45,7 @@
         <nacos.client.version>2.3.2</nacos.client.version>
 
         <!-- Redis -->
-        <redisson.version>3.24.3</redisson.version>
+        <redisson.version>3.13.6</redisson.version>
 
         <!-- RocketMQ -->
         <rocketmq.version>5.1.4</rocketmq.version>

@@ -158,7 +158,7 @@ public class EvmNodeBlockSyncHandler {
      */
     public EthBlock handlerTx(String chainName,BigInteger blockNumber,Web3j web3j) throws IOException {
 
-        Map<String,String> txReceipt = new HashMap<>();
+        Map<String,String> txSuccessReceipt = new HashMap<>();
 
         DefaultBlockParameter blockParameter = DefaultBlockParameter.valueOf(blockNumber);
         EthBlock block = web3j.ethGetBlockByNumber(
@@ -172,14 +172,16 @@ public class EvmNodeBlockSyncHandler {
                 .send();
         Optional<List<TransactionReceipt>> optional = blockReceipts.getBlockReceipts();
         if (!optional.isPresent()) {
-            // 交易为空，更新区块数据
+            // 交易为空
             return block;
         }
         for (TransactionReceipt receipt : optional.get()) {
             if (!receipt.isStatusOK()){
                 continue;
             }
-            txReceipt.put(receipt.getTransactionHash(), receipt.getGasUsed().toString());
+            txSuccessReceipt.put(receipt.getTransactionHash(), receipt.getGasUsed().toString());
+
+            // 处理合约
             List<Log> logs = receipt.getLogs();
             if (CollectionUtils.isEmpty(logs)) {
                 continue;
