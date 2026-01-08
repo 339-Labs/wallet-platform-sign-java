@@ -18,9 +18,9 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <protobuf.version>3.23.4</protobuf.version>
+        <protobuf.version>3.25.1</protobuf.version>
         <protobuf-plugin.version>0.6.1</protobuf-plugin.version>
-        <grpc.version>1.58.0</grpc.version>
+        <grpc.version>1.60.0</grpc.version>
     </properties>
     <dependencies>
         <dependency>
@@ -60,7 +60,7 @@
             <extension>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
-                <version>1.7.0</version>
+                <version>1.7.1</version>
             </extension>
         </extensions>
 
@@ -73,19 +73,30 @@
                 <configuration>
                     <clearOutputDirectory>false</clearOutputDirectory>
                     <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
-                    <outputDirectory>${project.build.sourceDirectory}</outputDirectory>
                     <!--suppress UnresolvedMavenProperty -->
                     <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
-                    <pluginId>grpc-java</pluginId>
-                    <!--suppress UnresolvedMavenProperty -->
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>protobuf-compile</id>
                         <goals>
                             <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>grpc-compile</id>
+                        <goals>
                             <goal>compile-custom</goal>
                         </goals>
+                        <configuration>
+                            <pluginId>grpc-java</pluginId>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+                            <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

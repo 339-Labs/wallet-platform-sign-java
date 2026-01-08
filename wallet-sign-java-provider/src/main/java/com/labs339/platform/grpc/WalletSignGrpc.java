@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @GrpcService
-public class WalletSignGrpc extends WalletSignServiceGrpc.WalletSignServiceImplBase {
+    public class WalletSignGrpc extends WalletSignServiceGrpc.WalletSignServiceImplBase {
 
     @Autowired
     private WalletService walletService;

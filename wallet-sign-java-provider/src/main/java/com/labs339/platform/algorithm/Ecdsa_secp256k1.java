@@ -52,7 +52,7 @@ public class Ecdsa_secp256k1 extends Seed implements AlgorithmStrategy {
         // path =  m/purpose'/coin_type'/account'/change/address_index   "m/44'/0'/0'/0/0"
         StringBuffer path = new StringBuffer("m/44'/");
         if (coinType.getIsEvm()){
-            path.append(CoinType.Ether.getCoinType()+"'/");
+            path.append(CoinType.Ethereum.getCoinType()+"'/");
         }else {
             path.append(coinType.getCoinType()+"'/");
         }
