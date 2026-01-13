@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: wallet-platform-sign
+grpc:
+  server:
+    port:
+      8080
