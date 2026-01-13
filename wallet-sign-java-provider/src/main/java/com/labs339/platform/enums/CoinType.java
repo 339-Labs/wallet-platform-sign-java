@@ -21,11 +21,11 @@ public enum CoinType {
     Arbitrum_Sepolia("9001","0x80002329","ARB1","Arbitrum_Sepolia",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
     Optimistic("614","0x80000266","OPT","Optimistic",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
     Optimistic_Sepolia("614","0x80000266","OPT","Optimistic_Sepolia",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
-    Tron("195","0x800000c3","TRX","Tron",DepthEnum.Five,true, Ecdsa_secp256k1_evm.class),
+    Tron("195","0x800000c3","TRX","Tron",DepthEnum.Five,true, Ecdsa_secp256k1_tron.class),
 
     // edd25519
-    Solana("501","0x800001f5","SOL","Solana",DepthEnum.Four,false, Eddsa_ed25519.class),
-    Solana_Test("501","0x800001f5","SOL","Solana_Test",DepthEnum.Four,false, Eddsa_ed25519.class),
+    Solana("501","0x800001f5","SOL","Solana",DepthEnum.Four,false, Eddsa_ed25519_solana.class),
+    Solana_Test("501","0x800001f5","SOL","Solana_Test",DepthEnum.Four,false, Eddsa_ed25519_solana.class),
     Cardano("1815","0x80000717","ADA","Cardano",DepthEnum.Five,false, Eddsa_ed25519.class),
     NEAR("397","0x8000018d","NEAR","Near_Protocol",DepthEnum.Three,false, Eddsa_ed25519.class),;
 
